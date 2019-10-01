@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Location } from '@reach/router'
-import qs from 'qs'
+// import qs from 'qs'
 import _ from 'lodash'
 
 import PageHeader from '../components/PageHeader'
@@ -47,20 +47,20 @@ export const TutorialIndexTemplate = ({
 }) => (
   <Location>
     {({ location }) => {
-      let filteredPosts =
-        posts && !!posts.length
-          ? byCategory(byDate(posts), title, contentType)
-          : []
+      // let filteredPosts =
+      //   posts && !!posts.length
+      //     ? byCategory(byDate(posts), title, contentType)
+      //     : []
 
-      let queryObj = location.search.replace('?', '')
-      queryObj = qs.parse(queryObj)
+      // let queryObj = location.search.replace('?', '')
+      // queryObj = qs.parse(queryObj)
 
-      if (enableSearch && queryObj.s) {
-        const searchTerm = queryObj.s.toLowerCase()
-        filteredPosts = filteredPosts.filter(post =>
-          post.frontmatter.title.toLowerCase().includes(searchTerm)
-        )
-      }
+      // if (enableSearch && queryObj.s) {
+      //   const searchTerm = queryObj.s.toLowerCase()
+      //   filteredPosts = filteredPosts.filter(post =>
+      //     post.frontmatter.title.toLowerCase().includes(searchTerm)
+      //   )
+      // }
 
       return (
         <main className="Blog">

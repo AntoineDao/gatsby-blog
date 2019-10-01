@@ -4,11 +4,9 @@ import { StaticQuery, graphql } from 'gatsby'
 import Meta from './Meta'
 import Nav from './Nav'
 import Footer from './Footer'
-import PageHeader from '../components/PageHeader'
 
 import 'modern-normalize/modern-normalize.css'
 import './globalStyles.css'
-import { HELMET_PROPS } from 'react-helmet/lib/HelmetConstants'
 
 export default ({ children, meta, title, subtitle, featuredImage }) => {
   return (

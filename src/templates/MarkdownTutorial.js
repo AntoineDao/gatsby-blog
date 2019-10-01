@@ -1,6 +1,5 @@
 import React from 'react'
 import _ from 'lodash'
-import _format from 'date-fns/format'
 import { graphql } from 'gatsby'
 
 import Layout from '../components/Layout'

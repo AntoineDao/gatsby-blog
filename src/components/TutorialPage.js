@@ -1,12 +1,10 @@
 import React, { Fragment } from 'react'
-import _get from 'lodash/get'
 import _format from 'date-fns/format'
-import { Link, graphql } from 'gatsby'
+import { Link } from 'gatsby'
 import { ChevronLeft } from 'react-feather'
 
 import PageHeader from './PageHeader'
 import Content from './Content'
-import Layout from './Layout'
 import './TutorialPage.css'
 
 const TutorialPage = ({
