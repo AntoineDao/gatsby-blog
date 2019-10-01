@@ -1,9 +1,14 @@
 const postcssPresetEnv = require('postcss-preset-env')
+const fs = require(`fs`)
+const fetch = require(`node-fetch`)
+const { buildClientSchema } = require(`graphql`)
+const { createHttpLink } = require(`apollo-link-http`)
+const gihtubGraphql = require('@octokit/graphql-schema')
 
 module.exports = {
   siteMetadata: {
-    title: 'Yelloecake',
-    siteUrl: 'https://yellowcake.netlify.com'
+    title: 'Nerd Extraordinaire',
+    siteUrl: 'https://nerd-extraordinaire.com'
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -11,8 +16,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-tagmanager',
       options: {
-        /*id: 'GTM-add_your_tag_here',*/
-        id: 'GTM-P4RNF8D',
+        id: 'GTM-MFT7NG3',
         includeInDevelopment: false
       }
     },
@@ -44,8 +48,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'yellowcake',
-        short_name: 'yellowcake',
+        name: 'nerd-extraordinaire',
+        short_name: 'nerd-extraordinaire',
         start_url: '/',
         background_color: '#00C2BD',
         theme_color: '#00C2BD',
@@ -71,7 +75,29 @@ module.exports = {
         name: 'pages'
       }
     },
-
+    {
+      resolve: `gatsby-source-git`,
+      options: {
+        name: `dragonfly-tutorial`,
+        remote: `https://github.com/AntoineDao/lbt-dragonfly-tutorial`,
+        // Optionally supply a branch. If none supplied, you'll get the default branch.
+        branch: `master`,
+        // Tailor which files get imported eg. import the docs folder from a codebase.
+        // patterns: `docs/**`
+      }
+    },
+    {
+      resolve: `gatsby-source-git`,
+      options: {
+        name: `honeybee-tutorial`,
+        remote: `https://github.com/AntoineDao/lbt-honeybee-tutorial`,
+        // Optionally supply a branch. If none supplied, you'll get the default branch.
+        branch: `master`,
+        // Tailor which files get imported eg. import the docs folder from a codebase.
+        // patterns: `docs/**`
+      }
+    },
+    
     // images
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
@@ -94,7 +120,25 @@ module.exports = {
         ]
       }
     },
-
+    // {
+    //   resolve: `gatsby-source-graphql`,
+    //   options: {
+    //     fieldName: `github`,
+    //     typeName: `GitHub`,
+    //     createLink: () =>
+    //       createHttpLink({
+    //         uri: `https://api.github.com/graphql`,
+    //         headers: {
+    //           Authorization: `bearer ${process.env.GH_TOKEN}`,
+    //         },
+    //         fetch,
+    //       }),
+    //     createSchema: async () => {
+    //       return buildClientSchema(gihtubGraphql.schema.json)
+    //     },
+    //   },
+    // },
+    `@gatsby-contrib/gatsby-transformer-ipynb`,
     // css (replace with gatsby-plugin-sass for v2)
     {
       resolve: `gatsby-plugin-sass`,

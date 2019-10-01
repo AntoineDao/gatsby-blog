@@ -4,12 +4,13 @@ import { StaticQuery, graphql } from 'gatsby'
 import Meta from './Meta'
 import Nav from './Nav'
 import Footer from './Footer'
-import GithubCorner from './GithubCorner'
+import PageHeader from '../components/PageHeader'
 
 import 'modern-normalize/modern-normalize.css'
 import './globalStyles.css'
+import { HELMET_PROPS } from 'react-helmet/lib/HelmetConstants'
 
-export default ({ children, meta, title }) => {
+export default ({ children, meta, title, subtitle, featuredImage }) => {
   return (
     <StaticQuery
       query={graphql`
@@ -72,8 +73,6 @@ export default ({ children, meta, title }) => {
               {...meta}
               {...data.settingsYaml}
             />
-
-            <GithubCorner url="https://github.com/thriveweb/yellowcake" />
 
             <Nav subNav={subNav} />
 

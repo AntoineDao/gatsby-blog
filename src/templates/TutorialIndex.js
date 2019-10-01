@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { Location } from '@reach/router'
 import qs from 'qs'
+import _ from 'lodash'
 
 import PageHeader from '../components/PageHeader'
 import PostSection from '../components/PostSection'
@@ -35,7 +36,7 @@ export const byCategory = (posts, title, contentType) => {
 }
 
 // Export Template for use in CMS preview
-export const BlogIndexTemplate = ({
+export const TutorialIndexTemplate = ({
   title,
   subtitle,
   featuredImage,
@@ -63,11 +64,11 @@ export const BlogIndexTemplate = ({
 
       return (
         <main className="Blog">
-          {/* <PageHeader
+          <PageHeader
             title={title}
             subtitle={subtitle}
             backgroundImage={featuredImage}
-          /> */}
+          />
 
           {!!postCategories.length && (
             <section className="section thin">
@@ -80,7 +81,7 @@ export const BlogIndexTemplate = ({
           {!!posts.length && (
             <section className="section">
               <div className="container">
-                <PostSection posts={filteredPosts} />
+                <PostSection posts={posts} />
               </div>
             </section>
           )}
@@ -90,38 +91,33 @@ export const BlogIndexTemplate = ({
   </Location>
 )
 
-// Export Default BlogIndex for front-end
-const BlogIndex = ({ data: { page, posts, postCategories } }) => (
+// Export Default TutorialIndex for front-end
+const TutorialIndex = ({ data: { page, tutorials } }) => (
   <Layout
     meta={page.frontmatter.meta || false}
     title={page.frontmatter.title || false}
   >
-    <BlogIndexTemplate
+    <TutorialIndexTemplate
       {...page}
       {...page.fields}
       {...page.frontmatter}
-      posts={posts.edges.map(post => ({
-        ...post.node,
-        ...post.node.frontmatter,
-        ...post.node.fields
-      }))}
-      postCategories={postCategories.edges.map(post => ({
-        ...post.node,
-        ...post.node.frontmatter,
-        ...post.node.fields
+      posts={tutorials.edges.map(tutorial => ({
+        title: _.startCase(tutorial.node.sourceInstanceName),
+        slug: `tutorials/${tutorial.node.sourceInstanceName}`,
+        ...tutorial.node.children.filter(c => c.fields && c.fields.isIndex).shift().frontmatter,
       }))}
     />
   </Layout>
 )
 
-export default BlogIndex
+export default TutorialIndex
 
 export const pageQuery = graphql`
-  ## Query for BlogIndex data
+  ## Query for TutorialIndex data
   ## Use GraphiQL interface (http://localhost:8000/___graphql)
   ## $id is processed via gatsby-node.js
   ## query name must be unique to this file
-  query BlogIndex($id: String!) {
+  query TutorialIndex($id: String!) {
     page: markdownRemark(id: { eq: $id }) {
       ...Meta
       fields {
@@ -135,39 +131,27 @@ export const pageQuery = graphql`
         featuredImage
       }
     }
-
-    posts: allMarkdownRemark(
-      filter: { fields: { contentType: { eq: "posts" } } }
-      sort: { order: DESC, fields: [frontmatter___date] }
-    ) {
+    tutorials: allGitRemote {
       edges {
         node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            date
-            categories {
-              category
+          sourceInstanceName
+          full_name
+          pathname
+          children {
+            ... on MarkdownRemark {
+              fileAbsolutePath
+              excerpt
+              fields {
+                slug
+                tutorialSeries
+                isIndex
+              }
+              frontmatter {
+                title
+                featuredImage
+                excerpt
+              }
             }
-            featuredImage
-          }
-        }
-      }
-    }
-    postCategories: allMarkdownRemark(
-      filter: { fields: { contentType: { eq: "postCategories" } } }
-      sort: { order: ASC, fields: [frontmatter___title] }
-    ) {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
           }
         }
       }

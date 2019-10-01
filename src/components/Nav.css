@@ -2,7 +2,7 @@
   background: white;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 5;
   border-bottom: 1px solid var(--lightGrey);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.025);
 }
@@ -101,6 +101,11 @@
   display: block;
   position: relative;
   width: 15rem;
+}
+
+.Nav--Right {
+  display: flex;
+  width: 50%;
 }
 
 @media (max-width: 600px) {

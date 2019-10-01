@@ -3,18 +3,41 @@ import { Location } from '@reach/router'
 import { Link } from 'gatsby'
 import { Menu, X } from 'react-feather'
 import Logo from './Logo'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import './Nav.css'
+
+const transparentCss = {
+  background: 'transparent'
+};
+
+const transparentDepth = 200;
 
 export class Navigation extends Component {
   state = {
     active: false,
     activeSubNav: false,
-    currentPath: false
+    currentPath: false,
+    startTransparent: false,
+    transparentBackground: false
   }
 
-  componentDidMount = () =>
-    this.setState({ currentPath: this.props.location.pathname })
+  componentWillMount = () =>
+    this.setState({
+      currentPath: this.props.location.pathname,
+      startTransparent: this.props.startTransparent
+    })
+
+  componentDidMount = () => {
+    window.addEventListener('scroll', this.setOpacity)
+  }
+
+  setOpacity = () => {
+    if (this.state.startTransparent && window.scrollY < transparentDepth) {
+      return this.setState({transparentBackground: true})
+    }
+    return this.setState({transparentBackground: false})
+  }
 
   handleMenuToggle = () => this.setState({ active: !this.state.active })
 
@@ -43,14 +66,14 @@ export class Navigation extends Component {
       )
 
     return (
-      <nav className={`Nav ${active ? 'Nav-active' : ''}`}>
+      <nav className={`Nav ${active ? 'Nav-active' : ''}`} style={this.state.transparentBackground ? transparentCss : null }>
         <div className="Nav--Container container">
           <Link to="/" onClick={this.handleLinkClick}>
             <Logo />
           </Link>
           <div className="Nav--Links">
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/components/">Components</NavLink>
+            {/* <NavLink to="/components/">Components</NavLink> */}
             <div
               className={`Nav--Group ${
                 this.state.activeSubNav === 'posts' ? 'active' : ''
@@ -83,8 +106,27 @@ export class Navigation extends Component {
                 ))}
               </div>
             </div>
-            <NavLink to="/default/">Default</NavLink>
-            <NavLink to="/contact/">Contact</NavLink>
+            <NavLink 
+              to="/tutorials/"
+              className={`NavLink Nav--GroupParent ${
+                this.props.location.pathname.includes('tutorials')
+                  ? 'active'
+                  : ''
+                }`}
+            >
+              Tutorials
+            </NavLink>
+            {/* <NavLink to="/default/">Default</NavLink> */}
+            {/* <NavLink to="/contact/">Contact</NavLink> */}
+            <a href="https://github.com/antoinedao">
+              <FontAwesomeIcon icon={faGithub} size="lg" color="#00C2BD" />
+            </a>
+            <a href="https://www.linkedin.com/in/antoinedao/">
+              <FontAwesomeIcon icon={faLinkedin} size="lg" color="#00C2BD" />
+            </a>
+            <a href="https://twitter.com/ntoinedao">
+              <FontAwesomeIcon icon={faTwitter} size="lg" color="#00C2BD" />
+            </a>
           </div>
           <button
             className="Button-blank Nav--MenuButton"
@@ -98,6 +140,6 @@ export class Navigation extends Component {
   }
 }
 
-export default ({ subNav }) => (
-  <Location>{route => <Navigation subNav={subNav} {...route} />}</Location>
+export default ({ subNav, startTransparent }) => (
+  <Location>{route => <Navigation startTransparent={startTransparent} subNav={subNav} {...route} />}</Location>
 )
