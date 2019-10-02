@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import _ from 'lodash'
+import _startCase from 'lodash/startCase'
 
 import PageHeader from '../components/PageHeader'
 import Content from '../components/Content'
@@ -34,7 +34,7 @@ const HomePage = ({ data: { page, posts, tutorials } }) => (
         <PostSection
           title="Tutorials"
           posts={tutorials.edges.map(tutorial => ({
-            title: _.startCase(tutorial.node.sourceInstanceName),
+            title: _startCase(tutorial.node.sourceInstanceName),
             slug: `tutorials/${tutorial.node.sourceInstanceName}`,
             ...tutorial.node.children.filter(c => c.fields && c.fields.isIndex).shift().frontmatter,
           }))}

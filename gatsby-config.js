@@ -1,9 +1,4 @@
 const postcssPresetEnv = require('postcss-preset-env')
-const fs = require(`fs`)
-const fetch = require(`node-fetch`)
-const { buildClientSchema } = require(`graphql`)
-const { createHttpLink } = require(`apollo-link-http`)
-const gihtubGraphql = require('@octokit/graphql-schema')
 
 module.exports = {
   siteMetadata: {
@@ -121,24 +116,6 @@ module.exports = {
         ]
       }
     },
-    // {
-    //   resolve: `gatsby-source-graphql`,
-    //   options: {
-    //     fieldName: `github`,
-    //     typeName: `GitHub`,
-    //     createLink: () =>
-    //       createHttpLink({
-    //         uri: `https://api.github.com/graphql`,
-    //         headers: {
-    //           Authorization: `bearer ${process.env.GH_TOKEN}`,
-    //         },
-    //         fetch,
-    //       }),
-    //     createSchema: async () => {
-    //       return buildClientSchema(gihtubGraphql.schema.json)
-    //     },
-    //   },
-    // },
     `@gatsby-contrib/gatsby-transformer-ipynb`,
     // css (replace with gatsby-plugin-sass for v2)
     {

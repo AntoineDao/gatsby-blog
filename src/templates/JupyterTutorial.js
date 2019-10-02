@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from 'lodash'
+import _findIndex from 'lodash/findIndex'
 import { graphql } from 'gatsby'
 
 import Layout from '../components/Layout'
@@ -11,7 +11,7 @@ const JupyterTutorial = ({ data: { post, series } }) => {
   const { id } = post
   const { title, date, featuredImage } = series
 
-  const currentIndex = _.findIndex(series.children, { id })
+  const currentIndex = _findIndex(series.children, { id })
   let nextPostURL = null
   let prevPostURL = null
 

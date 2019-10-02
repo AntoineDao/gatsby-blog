@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { Location } from '@reach/router'
 // import qs from 'qs'
-import _ from 'lodash'
+import _startCase from 'lodash/startCase'
 
 import PageHeader from '../components/PageHeader'
 import PostSection from '../components/PostSection'
@@ -102,7 +102,7 @@ const TutorialIndex = ({ data: { page, tutorials } }) => (
       {...page.fields}
       {...page.frontmatter}
       posts={tutorials.edges.map(tutorial => ({
-        title: _.startCase(tutorial.node.sourceInstanceName),
+        title: _startCase(tutorial.node.sourceInstanceName),
         slug: `tutorials/${tutorial.node.sourceInstanceName}`,
         ...tutorial.node.children.filter(c => c.fields && c.fields.isIndex).shift().frontmatter,
       }))}
