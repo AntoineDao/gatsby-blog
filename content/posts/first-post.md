@@ -7,7 +7,7 @@ featuredImage: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d'
 excerpt: >- 
   On the joys of choosing which blogging platform to use for this website. Wordpress | Ghost | Gatsby
 categories:
-  - category: News
+  - category: Front End
 meta:
   canonicalLink: ''
   description: On the joys of choosing which blogging platform to use for this website. Wordpress | Ghost | Gatsby
