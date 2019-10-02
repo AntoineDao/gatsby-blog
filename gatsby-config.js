@@ -11,6 +11,7 @@ module.exports = {
     siteUrl: 'https://nerd-extraordinaire.com'
   },
   plugins: [
+    // `gatsby-plugin-no-sourcemaps`,
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-yaml',
     {
@@ -169,7 +170,7 @@ module.exports = {
         showSpinner: false
       }
     },
-    'gatsby-plugin-sitemap',
+    // 'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-netlify-cms',
       options: {
