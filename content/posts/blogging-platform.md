@@ -47,7 +47,7 @@ With this list of requirements at hand, I could now scour the internet after sea
   <img src="https://jekyllrb.com/img/logo-2x.png" />
 </div>
 
-### [Jekyll]((https://jekyllrb.com/))
+### Jekyll ([Link](https://jekyllrb.com/)}
 
 I have used this tool before, in fact the first iteration of a blog that I set up a few years ago was a Jekyll blog. It worked relatively well at the time as I had used minimal customization on top of the theme I had set up. I found limitations when I tried to set up the Jupyter Notebook based tutorials however as the HTML was copy pasted manually and just looked nasty when combined with the CSS forms from the default Jekyll theme.
 
