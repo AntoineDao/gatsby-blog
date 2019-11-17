@@ -5,6 +5,7 @@ import { Link, graphql } from 'gatsby'
 import { ChevronLeft } from 'react-feather'
 
 import Content from '../components/Content'
+import PageHeader from '../components/PageHeader'
 import Layout from '../components/Layout'
 import './SinglePost.css'
 
@@ -12,11 +13,16 @@ export const SinglePostTemplate = ({
   title,
   date,
   body,
+  featuredImage,
   nextPostURL,
   prevPostURL,
   categories = []
 }) => (
   <main>
+    {/* <PageHeader
+      // title={title}
+      backgroundImage={featuredImage}
+    /> */}
     <article
       className="SinglePost section light"
       itemScope
@@ -91,6 +97,7 @@ export const SinglePostTemplate = ({
 // Export Default SinglePost for front-end
 const SinglePost = ({ data: { post, allPosts } }) => {
   const thisEdge = allPosts.edges.find(edge => edge.node.id === post.id)
+  console.log(post.frontmatter)
   return (
     <Layout
       meta={post.frontmatter.meta || false}
@@ -123,6 +130,7 @@ export const pageQuery = graphql`
         title
         template
         subtitle
+        featuredImage
         date
         categories {
           category
